@@ -1,0 +1,4 @@
+# No external dependencies required for core tools.
+# All tools use Python standard library only.
+# Optional: pytest for running tests
+pytest>=7.0

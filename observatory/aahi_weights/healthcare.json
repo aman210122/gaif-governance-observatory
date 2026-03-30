@@ -1,0 +1,23 @@
+{
+  "industry": "Healthcare (Regulated)",
+  "description": "Default AAHI dimension weights for healthcare organizations under HIPAA and related regulations. These weights prioritize behavioral compliance and governance velocity because silent model behavior changes are the most common and most dangerous governance failure mode in clinical AI systems.",
+  "weights": {
+    "governance_velocity": 0.20,
+    "behavioral_compliance": 0.25,
+    "composition_safety": 0.20,
+    "trust_integrity": 0.10,
+    "supply_chain": 0.10,
+    "cost_compliance": 0.15
+  },
+  "rationale": {
+    "behavioral_compliance": "Highest weight (0.25) because behavioral drift is the most common governance failure mode. Models can change clinical reasoning quality without any visible API change.",
+    "governance_velocity": "Second highest (0.20) because GDR is a leading indicator. When governance reviews fall behind system changes, other dimensions degrade shortly after.",
+    "composition_safety": "Equal to governance velocity (0.20) because multi-agent clinical pipelines are the highest-risk deployment mode in healthcare.",
+    "trust_integrity": "Lower weight (0.10) because trust violations are binary and trigger immediate intervention via the floor constraint regardless of weight.",
+    "supply_chain": "Lower weight (0.10) because AI-BOM staleness is a lagging indicator with slower impact than behavioral or governance decay.",
+    "cost_compliance": "Lowest non-zero weight (0.15) because cost overruns, while operationally important, do not create patient safety or compliance risk."
+  },
+  "floor_constraint": "If any dimension scores below 0.3 for Critical or High tier systems, AAHI capped at 0.79 (Yellow zone maximum)",
+  "calibration_status": "Analytically derived, not empirically calibrated. Based on GAIF v1.0 Section 6.7.",
+  "contributor": "Aman Sharma (ORCID: 0009-0005-5107-4485)"
+}

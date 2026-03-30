@@ -1,0 +1,31 @@
+{
+  "name": "New York City Local Law 144 (Automated Employment Decision Tools)",
+  "jurisdiction": "New York City",
+  "jurisdiction_type": "municipal",
+  "scope": {
+    "deployment_modes": ["all"],
+    "data_types": ["employment candidate data"],
+    "use_case_categories": ["Automated employment decision tools (AEDTs) used in hiring and promotion"],
+    "risk_tiers": ["high"],
+    "description": "Applies to employers and employment agencies in NYC using automated tools to screen candidates or employees for hiring or promotion."
+  },
+  "requirements": [
+    {"id": "NYC-LL144-1", "obligation": "AEDTs must undergo independent bias audit no more than one year before use", "category": "bias_testing", "penalty": "$500-$1500 per violation per day"},
+    {"id": "NYC-LL144-2", "obligation": "Summary of bias audit results must be made publicly available", "category": "transparency", "penalty": "$500-$1500 per violation per day"},
+    {"id": "NYC-LL144-3", "obligation": "Notify candidates that an AEDT will be used at least 10 business days before use", "category": "disclosure", "penalty": "$500-$1500 per violation per day"},
+    {"id": "NYC-LL144-4", "obligation": "Allow candidates to request alternative selection process or accommodation", "category": "human_oversight", "penalty": "$500-$1500 per violation per day"}
+  ],
+  "effective_date": "2023-07-05",
+  "ai_risk_tier": "Maps to GAIF High for employment decision systems",
+  "mapping": {
+    "compliance_routing_rules": ["Route employment screening queries through bias-audited models only"],
+    "behavioral_contract_thresholds": ["Demographic parity ratio > 0.8 across protected groups"],
+    "disclosure_requirements": ["10-day advance notice to candidates", "Public posting of bias audit results"],
+    "monitoring_requirements": ["Annual independent bias audit"],
+    "audit_retention_days": 1460
+  },
+  "citation": "NYC Local Law 144 of 2021",
+  "url": "https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page",
+  "last_updated": "2026-03-30",
+  "contributor": "Aman Sharma (ORCID: 0009-0005-5107-4485)"
+}

@@ -1,0 +1,32 @@
+{
+  "name": "Colorado AI Act (SB24-205)",
+  "jurisdiction": "Colorado",
+  "jurisdiction_type": "state",
+  "scope": {
+    "deployment_modes": ["all"],
+    "data_types": ["personal data"],
+    "use_case_categories": ["High-risk AI systems making consequential decisions about consumers"],
+    "risk_tiers": ["high"],
+    "description": "Applies to developers and deployers of high-risk AI systems that make consequential decisions in education, employment, financial services, government services, healthcare, housing, insurance, and legal services."
+  },
+  "requirements": [
+    {"id": "CO-AI-1", "obligation": "Deployers must implement a risk management policy for high-risk AI systems", "category": "risk_assessment", "penalty": "Enforcement by Colorado AG under Colorado Consumer Protection Act"},
+    {"id": "CO-AI-2", "obligation": "Deployers must complete impact assessments for high-risk AI systems", "category": "risk_assessment", "penalty": "Enforcement by Colorado AG"},
+    {"id": "CO-AI-3", "obligation": "Notify consumers when AI is used to make consequential decisions about them", "category": "disclosure", "penalty": "Enforcement by Colorado AG"},
+    {"id": "CO-AI-4", "obligation": "Provide consumers opportunity to correct data and appeal AI-driven decisions", "category": "human_oversight", "penalty": "Enforcement by Colorado AG"},
+    {"id": "CO-AI-5", "obligation": "Developers must provide deployers with documentation about the AI system including known limitations and intended uses", "category": "documentation", "penalty": "Enforcement by Colorado AG"}
+  ],
+  "effective_date": "2026-02-01",
+  "ai_risk_tier": "Maps to GAIF High for consequential decision systems",
+  "mapping": {
+    "compliance_routing_rules": ["Route consequential decision queries through systems with impact assessment documentation"],
+    "behavioral_contract_thresholds": ["Bias testing results must be documented and shared with deployers"],
+    "disclosure_requirements": ["Consumer notification before consequential AI decision", "Right to appeal and human review"],
+    "monitoring_requirements": ["Annual impact assessments", "Bias testing and monitoring"],
+    "audit_retention_days": 1825
+  },
+  "citation": "Colorado SB24-205",
+  "url": "https://leg.colorado.gov/bills/sb24-205",
+  "last_updated": "2026-03-30",
+  "contributor": "Aman Sharma (ORCID: 0009-0005-5107-4485)"
+}
