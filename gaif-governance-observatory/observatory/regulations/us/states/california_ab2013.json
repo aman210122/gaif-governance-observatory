@@ -1,0 +1,29 @@
+{
+  "name": "California AB 2013 (AI Training Data Transparency)",
+  "jurisdiction": "California",
+  "jurisdiction_type": "state",
+  "scope": {
+    "deployment_modes": ["all"],
+    "data_types": ["training data"],
+    "use_case_categories": ["Generative AI systems available to California residents"],
+    "risk_tiers": ["medium", "high"],
+    "description": "Applies to developers of generative AI systems or services available to Californians."
+  },
+  "requirements": [
+    {"id": "CA-AB2013-1", "obligation": "Post high-level summary of training data on developer website", "category": "transparency", "penalty": "Enforcement by California AG"},
+    {"id": "CA-AB2013-2", "obligation": "Include data sources, types, and whether personal information or copyrighted material was used", "category": "documentation", "penalty": "Enforcement by California AG"}
+  ],
+  "effective_date": "2026-01-01",
+  "ai_risk_tier": "Maps to GAIF Medium for generative AI transparency",
+  "mapping": {
+    "compliance_routing_rules": [],
+    "behavioral_contract_thresholds": [],
+    "disclosure_requirements": ["Training data summary on developer website", "AI-BOM Data_P must include sources and data types"],
+    "monitoring_requirements": ["Update training data summary when training data changes"],
+    "audit_retention_days": 1825
+  },
+  "citation": "California Assembly Bill No. 2013",
+  "url": "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240AB2013",
+  "last_updated": "2026-03-30",
+  "contributor": "Aman Sharma (ORCID: 0009-0005-5107-4485)"
+}

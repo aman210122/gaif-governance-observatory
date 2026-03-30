@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GAIF Regulatory Policy",
+  "description": "Machine-readable encoding of an AI regulation per GAIF v1.0 Section 6.6",
+  "type": "object",
+  "required": ["name", "jurisdiction", "jurisdiction_type", "scope", "requirements", "effective_date", "ai_risk_tier", "mapping"],
+  "properties": {
+    "name": {"type": "string", "description": "Full name of the regulation"},
+    "jurisdiction": {"type": "string", "description": "Governing authority (e.g., EU, US Federal, California)"},
+    "jurisdiction_type": {"type": "string", "enum": ["supranational", "federal", "state", "sector", "municipal"]},
+    "scope": {
+      "type": "object",
+      "properties": {
+        "deployment_modes": {"type": "array", "items": {"type": "string"}},
+        "data_types": {"type": "array", "items": {"type": "string"}},
+        "use_case_categories": {"type": "array", "items": {"type": "string"}},
+        "risk_tiers": {"type": "array", "items": {"type": "string"}},
+        "description": {"type": "string"}
+      }
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "obligation": {"type": "string"},
+          "category": {"type": "string", "enum": ["transparency", "disclosure", "human_oversight", "bias_testing", "audit_retention", "risk_assessment", "registration", "data_governance", "security", "incident_reporting", "documentation"]},
+          "penalty": {"type": "string"}
+        }
+      }
+    },
+    "effective_date": {"type": "string", "format": "date"},
+    "ai_risk_tier": {"type": "string", "description": "Mapping to GAIF risk tiers"},
+    "mapping": {
+      "type": "object",
+      "properties": {
+        "compliance_routing_rules": {"type": "array", "items": {"type": "string"}},
+        "behavioral_contract_thresholds": {"type": "array", "items": {"type": "string"}},
+        "disclosure_requirements": {"type": "array", "items": {"type": "string"}},
+        "monitoring_requirements": {"type": "array", "items": {"type": "string"}},
+        "audit_retention_days": {"type": "integer"}
+      }
+    },
+    "citation": {"type": "string"},
+    "url": {"type": "string", "format": "uri"},
+    "last_updated": {"type": "string", "format": "date"},
+    "contributor": {"type": "string"}
+  }
+}

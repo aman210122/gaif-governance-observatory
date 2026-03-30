@@ -1,0 +1,15 @@
+{
+  "system_name": "OpenAI GPT-4 API",
+  "vendor": "OpenAI",
+  "description": "GPT-4 family models accessed through OpenAI API for text generation",
+  "D": 1, "T": 1, "A": 1,
+  "tier": "Tier B",
+  "justification": {
+    "D_rationale": "D=1: User data sent to OpenAI servers. OpenAI data usage policies apply. Contractual controls available through enterprise agreements and API data policies.",
+    "T_rationale": "T=1: Model architecture and weights are proprietary. Only API-level behavior observation. OpenAI publishes model cards and system cards with limited detail.",
+    "A_rationale": "A=1: Model responds to API calls with predefined behavior. Does not autonomously plan or execute multi-step workflows (that is the consumer's responsibility)."
+  },
+  "edge_case_notes": "When GPT-4 is used with function calling and code interpreter, the combined system may warrant Tier C classification depending on the autonomy of the orchestrating application.",
+  "last_updated": "2026-03-30",
+  "contributor": "Aman Sharma (ORCID: 0009-0005-5107-4485)"
+}

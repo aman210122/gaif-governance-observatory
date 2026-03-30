@@ -1,0 +1,32 @@
+{
+  "name": "Executive Order 14110 on Safe, Secure, and Trustworthy AI",
+  "jurisdiction": "United States Federal",
+  "jurisdiction_type": "federal",
+  "scope": {
+    "deployment_modes": ["all"],
+    "data_types": ["all"],
+    "use_case_categories": ["Federal agency AI use, dual-use foundation models, critical infrastructure AI"],
+    "risk_tiers": ["critical", "high", "medium"],
+    "description": "Applies to federal agencies and companies developing dual-use foundation models above compute thresholds."
+  },
+  "requirements": [
+    {"id": "EO14110-4.1", "obligation": "Developers of dual-use foundation models must notify the federal government and share safety test results", "category": "disclosure", "penalty": "Defense Production Act enforcement"},
+    {"id": "EO14110-4.2", "obligation": "Establish standards for red-team testing of AI systems", "category": "bias_testing", "penalty": "Agency compliance mandates"},
+    {"id": "EO14110-10.1", "obligation": "Federal agencies must designate Chief AI Officers", "category": "human_oversight", "penalty": "OMB compliance mandates"},
+    {"id": "EO14110-10.2", "obligation": "Agencies must complete AI use case inventories per OMB M-24-10", "category": "registration", "penalty": "OMB compliance mandates"},
+    {"id": "EO14110-5.2", "obligation": "Establish AI safety standards and best practices through NIST", "category": "risk_assessment", "penalty": "N/A (standards development)"}
+  ],
+  "effective_date": "2023-10-30",
+  "ai_risk_tier": "Maps to GAIF Critical for dual-use foundation models, High for federal agency AI",
+  "mapping": {
+    "compliance_routing_rules": ["Federal AI systems must route through FedRAMP-authorized endpoints"],
+    "behavioral_contract_thresholds": ["Safety test results must be shared before deployment"],
+    "disclosure_requirements": ["AI use case inventory per OMB M-24-10", "Content authentication and watermarking for AI-generated content"],
+    "monitoring_requirements": ["Red-team testing before deployment", "Ongoing monitoring of AI system impacts"],
+    "audit_retention_days": 2555
+  },
+  "citation": "Executive Order 14110, 88 FR 75191",
+  "url": "https://www.whitehouse.gov/briefing-room/presidential-actions/2023/10/30/executive-order-on-the-safe-secure-and-trustworthy-development-and-use-of-artificial-intelligence/",
+  "last_updated": "2026-03-30",
+  "contributor": "Aman Sharma (ORCID: 0009-0005-5107-4485)"
+}

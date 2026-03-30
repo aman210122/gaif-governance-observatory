@@ -1,0 +1,15 @@
+{
+  "system_name": "Amazon Bedrock Agents",
+  "vendor": "Amazon Web Services",
+  "description": "Fully managed agents that autonomously plan and execute tasks using foundation models, APIs, and knowledge bases",
+  "D": 1, "T": 2, "A": 2,
+  "tier": "Tier C",
+  "justification": {
+    "D_rationale": "D=1: Data processed on AWS infrastructure with contractual controls (BAA available). Training data of underlying models (Claude, Llama, etc.) controlled by model providers, not AWS or the customer.",
+    "T_rationale": "T=2: Agent orchestration logic is visible to the developer. Underlying foundation model behavior is opaque (especially for third-party models hosted on Bedrock).",
+    "A_rationale": "A=2: Agents autonomously plan multi-step workflows, invoke APIs and tools, maintain session state, and execute actions based on reasoning."
+  },
+  "edge_case_notes": "Classification is for the agent deployment as a whole. Individual foundation model API calls within the agent would be Tier B in isolation.",
+  "last_updated": "2026-03-30",
+  "contributor": "Aman Sharma (ORCID: 0009-0005-5107-4485)"
+}
