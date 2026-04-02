@@ -1,0 +1,159 @@
+"""
+GAIF-4 Scorecard Report Generator
+
+Produces a formatted markdown report from a GAIF4Scorecard.
+"""
+
+from datetime import datetime, timezone
+from .calculator import GAIF4Scorecard
+
+
+def _status_indicator(status: str) -> str:
+    if status == "PASS":
+        return "PASS"
+    elif status == "WARN":
+        return "WARN"
+    else:
+        return "FAIL"
+
+
+def generate_markdown(scorecard: GAIF4Scorecard) -> str:
+    """Generate a markdown scorecard report."""
+
+    now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+
+    lines = []
+    lines.append("# GAIF-4 Safety Assessment Scorecard")
+    lines.append("")
+    lines.append(f"**Assessment Date:** {now}")
+    lines.append(f"**GAIF-4 Version:** v{scorecard.version}")
+    lines.append(f"**Assessment Passes:** {scorecard.assessment_passes}")
+    if scorecard.pipeline_description:
+        lines.append(f"**Pipeline:** {scorecard.pipeline_description}")
+    if scorecard.topology:
+        lines.append(f"**Topology:** {scorecard.topology}")
+    lines.append("")
+
+    # Grade banner
+    lines.append("---")
+    lines.append("")
+    lines.append(f"## Overall Grade: {scorecard.grade}")
+    lines.append("")
+    lines.append(f"**Composite Score:** {scorecard.composite:.2f}")
+    lines.append("")
+    lines.append(f"**Guidance:** {scorecard.guidance}")
+    lines.append("")
+
+    # Dimension table
+    lines.append("---")
+    lines.append("")
+    lines.append("## Per-Dimension Results")
+    lines.append("")
+    lines.append(
+        "| Dimension | Metric | Raw Value | Normalized | Status |"
+    )
+    lines.append(
+        "|-----------|--------|-----------|------------|--------|"
+    )
+
+    dim_labels = {
+        "EMR": "Emergence Safety",
+        "T1PR": "Contamination Resistance",
+        "CFR": "Compliance Fidelity",
+        "GDR": "Governance Coverage",
+    }
+
+    for dim in scorecard.dimensions:
+        label = dim_labels.get(dim.metric_name, dim.metric_name)
+        status_text = _status_indicator(dim.status)
+        if dim.metric_name == "T1PR":
+            raw_display = f"{dim.raw_value:.0%}"
+        elif dim.metric_name == "GDR":
+            raw_display = f"{dim.raw_value:.1f}"
+        else:
+            raw_display = f"{dim.raw_value:.3f}"
+        lines.append(
+            f"| {label} | {dim.metric_name} | "
+            f"{raw_display} | {dim.normalized_score:.3f} | "
+            f"{status_text} |"
+        )
+
+    lines.append("")
+
+    # GDR context
+    lines.append(
+        f"**GDR Risk Level:** {scorecard.gdr_risk_level.capitalize()}"
+    )
+    lines.append(
+        f"**GDR Coverage Target:** {scorecard.gdr_coverage_target:.1f}"
+    )
+    lines.append("")
+
+    # Composite interpretation
+    lines.append("---")
+    lines.append("")
+    lines.append("## Composite Score Interpretation")
+    lines.append("")
+    if scorecard.composite >= 0.50:
+        lines.append(
+            "Composite is at or above 0.50: no dimension is in FAIL state."
+        )
+    else:
+        lines.append(
+            "**Composite is below 0.50: at least one dimension "
+            "is in FAIL state.**"
+        )
+    lines.append("")
+
+    # Action items
+    warn_dims = [d for d in scorecard.dimensions if d.status == "WARN"]
+    fail_dims = [d for d in scorecard.dimensions if d.status == "FAIL"]
+
+    if warn_dims or fail_dims:
+        lines.append("---")
+        lines.append("")
+        lines.append("## Required Actions")
+        lines.append("")
+        for dim in fail_dims:
+            label = dim_labels.get(dim.metric_name, dim.metric_name)
+            lines.append(
+                f"- **{label} ({dim.metric_name}):** FAIL. "
+                f"Address this dimension before deployment."
+            )
+        for dim in warn_dims:
+            label = dim_labels.get(dim.metric_name, dim.metric_name)
+            lines.append(
+                f"- **{label} ({dim.metric_name}):** WARN. "
+                f"Document mitigation plan and schedule review."
+            )
+        lines.append("")
+
+    # Methodology note
+    lines.append("---")
+    lines.append("")
+    lines.append("## Methodology")
+    lines.append("")
+    lines.append(
+        "This scorecard implements the GAIF-4 Working Specification v1.5. "
+        "All FAIL boundaries map to 0.50 on the normalized scale. "
+        "The composite score is the minimum of all four normalized scores. "
+        "A composite below 0.50 indicates at least one dimension in FAIL "
+        "state."
+    )
+    lines.append("")
+    lines.append(
+        "GAIF-4 is a measurement specification, not a governance authority. "
+        "Deployment guidance represents recommendations based on grade "
+        "severity. Enforcement and operational decisions remain with the "
+        "deploying organization."
+    )
+    lines.append("")
+    lines.append("---")
+    lines.append("")
+    lines.append(
+        "*Generated by GAIF-4 Assessment Toolkit "
+        "(github.com/aman210122/gaif-governance-observatory)*"
+    )
+    lines.append("")
+
+    return "\n".join(lines)

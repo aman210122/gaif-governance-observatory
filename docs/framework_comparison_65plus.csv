@@ -1,0 +1,67 @@
+framework_name,source,year,what_it_measures,computable_metrics,deployment_level,multi_dimensional,clinical_ai_specific,gaif4_gap_reason
+NIST AI RMF 1.0,NIST AI 100-1,2023,Qualitative governance functions (Govern Map Measure Manage),No,No,No,No,No computable metrics defined; Measure function calls for quantitative assessment but does not define any
+ISO/IEC 42001,ISO/IEC,2023,AI management system certification standard,No,No,No,No,Point-in-time audit; no continuous quantitative assessment
+EU AI Act (Regulation 2024/1689),European Parliament,2024,Risk classification and compliance requirements for AI systems,No,No,No,No,Regulatory framework; requires risk management but defines no computable safety metrics
+FLI AI Safety Index,Future of Life Institute,2025,Expert panel rates AI companies A-F across 6 safety domains,No,No (company-level),Partially,No,Rates companies not deployments; no deployment-level pipeline metrics
+MedSentry,Chen et al. arXiv:2505.20824,2025,Adversarial resilience of multi-agent medical LLM systems,Partially (LCS and RS scores),Yes,No (single dimension),Yes,Single dimension (adversarial only); does not measure non-adversarial emergence or compliance or governance
+Forrester AEGIS,Forrester Research,2025,Six-domain security guardrails for agentic AI,No,No,Partially,No,Security guardrail architecture; no computable clinical safety metrics
+Google SAIF,Google,2023,Conceptual security framework for AI systems,No,No,No,No,Conceptual framework; no computable metrics
+MITRE SAFE-AI,MITRE,2024,Security assessment framework for AI,No,No,Partially,No,Security-oriented; no clinical safety metrics
+MIT AI Risk Repository,Slattery et al.,2024,Database of 1612 classified AI risks across 65 frameworks,N/A (database),N/A,Yes (catalog),No,Risk taxonomy and catalog; does not define computable deployment metrics
+SaferAI Maturity Model,SaferAI,2024,AI safety maturity assessment for organizations,Partially (maturity levels),No (org-level),Partially,No,Organization-level maturity; not deployment-level pipeline assessment
+DORA Metrics,Forsgren Humble Kim,2013-2024,Software delivery performance (deployment freq and lead time and change failure rate and recovery time),Yes,Yes (production),Partially (2 dimensions: throughput and stability),No,Retrospective measurement from production data; not prospective risk assessment; not clinical AI specific
+OECD AI Principles,OECD,2019,Policy principles for trustworthy AI,No,No,No,No,High-level policy principles; no computable metrics
+IEEE 7000,IEEE,2021,Ethical system design standard,No,No,No,No,Design process standard; no runtime safety metrics
+IEEE 7010,IEEE,2020,Well-being impact assessment for AI,Partially,No,No,No,Well-being focused; not safety metrics for clinical AI pipelines
+WHO Ethics and Governance of AI for Health,WHO,2021,Ethical guidance for health AI,No,No,No,Yes (health),Ethical guidance; no computable deployment metrics
+FDA PCCP Framework,FDA,2023,Predetermined change control plan for AI/ML SaMD,No (process framework),Partially,No,Yes (medical devices),Addresses planned model updates; does not measure unplanned vendor behavioral changes; GDR complements this
+TOGAF,The Open Group,2022,Enterprise architecture framework,No,No,No,No,Designed for deterministic systems; no AI-specific governance metrics
+AWS Well-Architected AI Lens,AWS,2025,Cloud platform AI guidance,No,No,Partially,No,Vendor-specific; point-in-time assessment
+Azure AI Well-Architected,Microsoft,2025,Cloud platform AI guidance,No,No,Partially,No,Vendor-specific; point-in-time assessment
+MedQA,Jin et al.,2021,Medical question answering benchmark,Yes,No (model-level),No,Yes,Model-level knowledge benchmark; not pipeline safety
+MMLU,Hendrycks et al.,2021,Massive Multitask Language Understanding,Yes,No (model-level),No,No,Model-level benchmark; not deployment safety
+PubMedQA,Jin et al.,2019,Biomedical question answering,Yes,No (model-level),No,Yes (biomedical),Model-level benchmark; not pipeline safety
+AgentHarm,Andriushchenko et al. ICLR 2025,2025,Harmfulness of LLM agents (110 tasks 11 categories),Yes,Yes,No (single dimension),No,Refusal benchmark; tests whether agents refuse harmful requests not whether plausible misinformation propagates
+NetSafe,Yu et al. ACL Findings 2025,2025,Topological safety of multi-agent systems,Partially (relative rankings),Yes,No (single dimension),No,Relative topology rankings; no quantitative diagnostic like CGD; no clinical focus
+GUARDIAN,Zhou Yang Wang NeurIPS 2025,2025,Temporal graph anomaly detection in multi-agent collaboration,Partially,Yes,No,No,Reactive (detects after contamination); not predictive risk assessment
+Prompt Infection,Lee and Tiwari,2024,LLM-to-LLM prompt injection propagation,No (demonstrates attack),Yes,No,No,Attack demonstration; no measurement framework
+CARE (ICLR 2026),ICLR,2026,Clinical accountability in multi-modal medical reasoning,Partially,Yes,No (single dimension),Yes,Evidence-grounded reasoning accountability; not pipeline safety measurement
+ClinDEF,arXiv 2025,2025,Dynamic evaluation framework for LLMs in clinical reasoning,Partially,No (model-level),No,Yes,Clinical reasoning evaluation; not deployment safety
+RouteLLM,Ong et al. ICLR 2025,2025,Cost-quality LLM routing,Yes,Yes,No,No,Cost-quality optimization; no data residency or safety constraints
+CP-Router,Su et al.,2025,Conformal prediction for LLM/LRM routing,Yes,Yes,No,No,Answer uncertainty routing; not data sensitivity routing
+FrugalGPT,Chen Zaharia Zou NeurIPS 2023,2023,Cost-efficient LLM cascading,Yes,Yes,No,No,Cost optimization; no safety or compliance constraints
+AgentClinic,Schmidgall et al.,2024,Multimodal agent benchmark in simulated clinical environments,Yes,No (model-level),No,Yes,Simulated clinical evaluation; not deployment pipeline safety
+KG4Diagnosis,Huang et al.,2025,Hierarchical multi-agent LLM with knowledge graph enhancement,No,Yes,No,Yes,Diagnostic accuracy framework; not safety measurement
+MedAgents,Tang et al.,2024,Zero-shot medical reasoning via LLM collaboration,No,Yes,No,Yes,Reasoning accuracy; not safety measurement
+MAST,Cemri et al.,2025,14-mode failure taxonomy for multi-agent systems (1600+ traces),Partially,Yes,Partially,No,Failure taxonomy; no computable deployment metrics
+MAS-FIRE,Zhang et al.,2026,Fault injection and reliability evaluation for LLM MAS,Yes,Yes,No (single dimension),No,Fault injection testing; not non-adversarial safety measurement
+From Spark to Fire,Xie et al.,2026,Error cascade characterization in LLM multi-agent collaboration,Partially,Yes,No,No,Studies injected error propagation; not spontaneous emergence
+Multi-LLM Debate Framework,Estornell et al.,2026,Framework and principals for multi-LLM debate,Partially,Yes,No,No,Debate accuracy analysis; not safety measurement
+Martingale Curse,Estornell et al.,2026,Proves standard debate cannot improve correctness beyond majority voting,No (theoretical),Yes,No,No,Theoretical result; not a measurement framework
+G-Safeguard,ACL 2025,2025,Graph neural network anomaly detection for LLM MAS,Partially,Yes,No,No,Anomaly detection; not computable safety metrics
+CORBA,arXiv 2025,2025,Contagious recursive blocking attacks on LLM MAS,No (attack),Yes,No,No,Attack framework; not measurement
+AgentLeak,El Yagoubi et al.,2026,Privacy leakage benchmark for multi-agent systems,Yes,Yes,No (single dimension),No,Privacy leakage only; not multi-dimensional safety
+SAFE-AI (medRxiv),medRxiv 2025,2025,Structured framework for explainable AI in clinical decision making,Partially,No (model-level),No,Yes,Single-agent clinical decision making; not multi-agent pipeline safety
+MDTeamGPT,arXiv 2025,2025,Self-evolving multi-agent framework for multi-disciplinary consultation,No,Yes,No,Yes,Consultation framework; not safety measurement
+DUCX,arXiv 2026,2026,Decomposing unfairness in tool-using chest X-ray agents,Partially,Yes,No (single dimension - fairness),Yes,Fairness decomposition; single dimension
+Hippo-RAG,arXiv 2024,2024,Neurobiologically inspired RAG framework,No,No,No,No,RAG architecture; not safety measurement
+TxAgent,Gao et al.,2025,Multi-step reasoning with 200+ specialized tools for therapy,No,Yes,No,Yes (therapeutic),Treatment discovery tool; not safety measurement
+BioMaster,Su et al.,2025,Multi-agent system for automated multi-omics workflows,No,Yes,No,Yes (bioinformatics),Bioinformatics automation; not safety measurement
+AI-HOPE frameworks,Various 2025-2026,2025,Pathway-specific precision oncology agents,No,Yes,No,Yes (oncology),Diagnostic tools; not safety measurement
+IBM Watson Health AI Governance,IBM,2023,AI lifecycle governance for healthcare,No,No (org-level),No,Yes,Organizational governance; no computable pipeline metrics
+Credo AI Platform,Credo AI,2024,AI governance and responsible AI platform,Partially,No (org-level),Partially,No,Organizational governance platform; not deployment-level pipeline safety
+Singulr AI,Singulr,2024,AI safety and governance platform,Partially,No (org-level),Partially,No,Governance platform; not pipeline safety metrics
+Holistic AI,Holistic AI,2024,AI risk management platform,Partially,No (org-level),Partially,No,Risk management platform; not deployment-level clinical safety
+Arthur AI,Arthur,2024,AI performance and safety monitoring,Yes,Partially,Partially,No,Model monitoring; not multi-agent pipeline safety assessment
+Weights and Biases Model Registry,W&B,2024,ML experiment tracking and model monitoring,Yes,No (model-level),No,No,Experiment tracking; not pipeline safety
+MLflow Model Monitoring,MLflow,2024,ML model lifecycle management,Yes,No (model-level),No,No,Model lifecycle; not pipeline safety
+Responsible AI Institute RAISE,RAI Institute,2023,AI system certification program,No,No (org-level),Partially,No,Certification program; not computable deployment metrics
+Singapore AI Verify,IMDA Singapore,2023,AI governance testing framework,Partially,No (model-level),Partially,No,Model-level testing; not multi-agent pipeline safety
+China AI Safety Standards,TC260,2024,National AI safety standards,No,No,No,No,National standards; no computable clinical pipeline metrics
+UK AI Safety Institute Evaluations,UK AISI,2024,Frontier model safety evaluations,Partially,No (model-level),Partially,No,Frontier model evaluation; not multi-agent clinical pipeline safety
+Canada Algorithmic Impact Assessment,Treasury Board Canada,2023,Algorithmic impact assessment tool,Partially,No (system-level),Partially,No,Impact assessment; not pipeline safety metrics
+IEEE P2863,IEEE,2024,Recommended practice for organizational governance of AI,No,No (org-level),No,No,Organizational governance; no computable metrics
+DX Core 4,DX/Swarmia,2025,Developer experience measurement (extends DORA),Yes,Yes (production),Partially,No,Software delivery measurement; not clinical AI safety
+Emerging Mind Medical LLM Benchmarks Catalog,Emerging Mind,2025,Catalog of medical LLM evaluation benchmarks,N/A (catalog),N/A,Yes (catalog),Yes,Benchmark catalog; does not define computable deployment safety metrics
+HIPAA Security Rule (45 CFR 164),HHS OCR,1996/2013,Data security requirements for protected health information,No (regulatory),No,No,Yes (healthcare),Regulatory standard; defines security requirements but no AI safety metrics
+FDA SaMD Framework,FDA/IMDRF,2017/2025,Software as a Medical Device regulatory framework,No (regulatory),Partially,No,Yes (medical devices),Regulatory classification; no computable multi-agent pipeline safety metrics
