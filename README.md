@@ -1,162 +1,187 @@
 # GAIF Governance Observatory
 
-**An open-source toolkit and community-driven database for governing AI systems at enterprise scale.**
+**Measure, monitor, and enforce governance in multi-agent LLM systems.**
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19341015.svg)](https://doi.org/10.5281/zenodo.19341015)
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/downloads/)
+[![Tests](https://img.shields.io/badge/tests-59%20passing-brightgreen.svg)](#testing)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.19378438-blue.svg)](https://doi.org/10.5281/zenodo.19378438)
 
 ---
 
 ## The Problem
 
-Every enterprise deploying AI today faces the same question: *How do we govern systems whose behavior is probabilistic, whose safety degrades through composition, and whose regulatory landscape changes faster than our review cycles?*
+You built a multi-agent LLM pipeline. Each agent passes safety checks individually. But when they work together, bad things happen: fabricated drug interactions, hallucinated clinical guidelines, compliance violations that no single agent caused.
 
-Existing frameworks were not built for this. TOGAF assumes deterministic systems. NIST AI RMF tells you what risks to manage but not how to architect for them. ISO 42001 defines a management system, not an architecture. Cloud well-architected frameworks are vendor-specific. None of them give you a computable metric that tells you whether your AI governance is healthy or decaying.
+**Per-agent governance does not compose into system-level governance.** This is not a theory. In experiments across 4,800+ clinical trials, we found 74 critical drug interaction events that emerged only at the pipeline level, invisible to any single-agent test.
 
-## What GAIF Provides
+GAIF (Governance AI Framework) gives you the tools to detect, measure, and prevent this.
 
-The **Governed AI Architecture Framework (GAIF)** introduces architectural primitives purpose-built for probabilistic AI systems. This repository provides computable tools that implement those primitives, plus a community-driven database that keeps them current.
+---
 
-### Computable Tools
+## What GAIF Does
 
-| Tool | What It Does | Input | Output |
-|---|---|---|---|
-| **Tier Classifier** | Classifies AI systems by governance tier | Data control, transparency, autonomy scores | Tier A/B/C + governance requirements |
-| **GDR Calculator** | Measures governance decay rate | Change events, review cycles, risk tier | GDR score + escalation triggers |
-| **AAHI Calculator** | Computes AI Architecture Health Index | Health dimensions per system | AAHI score + operational zone |
-| **Composition Safety** | Computes safety budget for multi-agent pipelines | Per-component safety, degradation mode | Max composition hops (n_max) |
-| **Composition Cost** | Computes cost budget for AI pipelines | Per-hop costs, amplification factors | Max affordable hops (n_max_cost) |
-| **Risk Assessment** | Interactive 25-question AI risk assessment | Answers to structured questions | Risk tier (Critical/High/Medium/Low) |
+GAIF-4 defines four quantitative metrics that measure governance health across your multi-agent pipeline:
 
-### Community-Driven Observatory
+| Metric | What It Measures | Why It Matters |
+|--------|-----------------|----------------|
+| **EMR** (Emergent Misinformation Rate) | How often your pipeline generates clinically dangerous content that no single agent would produce alone | Catches "collective delusion" behavior |
+| **T1PR** (Type-1 Pass Rate) | Rate at which contaminated outputs pass downstream safety filters | Reveals governance blind spots |
+| **CFR** (Compliance Failure Rate) | Proportion of outputs violating regulatory or policy constraints | Maps directly to HIPAA/FDA risk |
+| **GDR** (Governance Decay Rate) | How fast governance effectiveness degrades over time or across pipeline stages | Early warning system for governance rot |
 
-| Database | What It Contains | How to Contribute |
-|---|---|---|
-| **Regulatory Database** | Machine-readable AI regulations from 50+ jurisdictions | Encode your country's AI regulation as a JSON tuple |
-| **Tier Registry** | GAIF tier classifications for well-known AI platforms | Classify a public AI system with justification |
-| **AAHI Weight Profiles** | Industry-specific AAHI dimension weights | Propose weights for your industry with rationale |
+---
 
 ## Quick Start
 
+### Install
+
 ```bash
-git clone https://github.com/YOUR_USERNAME/gaif-governance-observatory.git
+git clone https://github.com/aman210122/gaif-governance-observatory.git
 cd gaif-governance-observatory
 pip install -r requirements.txt
-
-# Classify an AI system
-python tools/tier_classifier.py
-
-# Calculate Governance Decay Rate
-python tools/gdr_calculator.py
-
-# Run the full AAHI health assessment
-python tools/aahi_calculator.py
-
-# Check composition safety budget
-python tools/composition_safety.py
-
-# Run the 25-question risk assessment
-python tools/risk_assessment.py
 ```
 
-## Why Contribute?
+### Run Your First Governance Audit
 
-There is no standardized, machine-readable database of global AI regulations. Every enterprise governance team is manually tracking regulatory changes across dozens of jurisdictions. Every AI architect is making tier classification decisions without a shared reference. Every organization is defining governance health thresholds from scratch.
+```bash
+# Score a pipeline output against GAIF-4 metrics
+python tools/gaif_scorer.py --input data/sample_pipeline_output.json
 
-This repository changes that. Each contribution follows a formal schema derived from a published, DOI-stamped framework specification. Your encoded regulation or tier classification becomes part of a global reference that other practitioners can use immediately.
+# Check governance decay across pipeline stages
+python tools/gdr_calculator.py --input data/sample_multi_stage.json
 
-**Four ways to contribute:**
-
-1. **Encode a regulation** -- Pick an AI regulation from your jurisdiction and encode it as a [Regulatory Policy JSON](docs/regulatory_policy_guide.md)
-2. **Classify an AI system** -- Apply the tier classifier to a public AI platform and submit your classification with [justification](docs/tier_classification_guide.md)
-3. **Propose industry weights** -- Submit AAHI dimension weights calibrated for your industry with a [rationale document](docs/aahi_weights_guide.md)
-4. **Report edge cases** -- Applied a tool and got a surprising result? [Open an Issue](../../issues/new/choose) describing the edge case
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed instructions.
-
-## Framework Reference
-
-This toolkit implements primitives from the GAIF v1.0 specification:
-
-> Sharma, A. (2026). GAIF: Governed AI Architecture Framework v1.0 -- An AI-Native Enterprise Architecture Framework for Probabilistic, Learning, and Governed AI Systems. Zenodo. https://doi.org/10.5281/zenodo.19341015
-
-Key concepts from the specification:
-
-- [Governance Tiers](docs/governance_tiers.md) -- Three-tier model (Platform, SaaS, Agent) with formal classification
-- [Governance Decay Rate](docs/governance_decay_rate.md) -- Quantifying the gap between system change velocity and governance review frequency
-- [AI Architecture Health Index](docs/aahi.md) -- Continuously computed governance health score
-- [Composition Safety](docs/composition_safety.md) -- Safety degradation modeling for multi-agent pipelines
-- [Regulatory Adaptation](docs/regulatory_policy_guide.md) -- Machine-readable regulatory policy encoding
-
-## Repository Structure
-
-```
-gaif-governance-observatory/
-|-- tools/                          # Computable GAIF tools
-|   |-- tier_classifier.py         # Governance tier classification
-|   |-- gdr_calculator.py          # Governance Decay Rate computation
-|   |-- aahi_calculator.py         # AI Architecture Health Index
-|   |-- composition_safety.py      # Composition safety budget
-|   |-- composition_cost.py        # Composition cost budget
-|   |-- risk_assessment.py         # 25-question risk assessment
-|   |-- gaif_core.py               # Shared library for all tools
-|
-|-- observatory/                    # Community-driven databases
-|   |-- regulations/               # Machine-readable AI regulations
-|   |   |-- eu/                    # European Union
-|   |   |-- us/federal/            # US Federal
-|   |   |-- us/states/             # US State-level
-|   |   |-- uk/                    # United Kingdom
-|   |   |-- india/                 # India
-|   |   |-- brazil/                # Brazil
-|   |   |-- china/                 # China
-|   |-- tier_registry/             # Public AI system classifications
-|   |   |-- classifications/       # Individual system classifications
-|   |-- aahi_weights/              # Industry-specific AAHI weights
-|
-|-- dashboard/                      # AAHI visualization dashboard
-|-- docs/                           # Documentation
-|-- examples/                       # Worked examples
-|-- tests/                          # Unit tests
+# Generate a full governance report
+python tools/governance_report.py --input data/sample_pipeline_output.json --output report.json
 ```
 
-## Current Status
+### Example Output
 
-| Component | Status | Contributors Needed |
-|---|---|---|
-| Core tools | v0.1.0 | Feedback and testing |
-| EU regulations | 2 encoded | All EU member state implementations |
-| US Federal regulations | 2 encoded | Agency-specific guidance (FDA, OCC, SEC) |
-| US State regulations | 3 encoded | 47 more states |
-| International regulations | 0 encoded | Every jurisdiction welcome |
-| Tier classifications | 5 seed entries | All major AI platforms |
-| AAHI weights | 1 profile (healthcare) | Financial services, government, manufacturing |
-| Dashboard | v0.1.0 | UI/UX improvements |
+```
+GAIF-4 Governance Scorecard
+============================
+EMR:  0.0154  (74 events / 4,800 trials)
+T1PR: 0.23    (23% contaminated outputs passed filters)
+CFR:  0.0     (zero compliance violations detected)
+GDR:  0.031   (3.1% governance decay per stage)
 
-## License
+Overall Risk Level: MODERATE
+Recommendation: Review T1PR threshold; pipeline filters are under-catching contaminated content.
+```
 
-This project is licensed under the Apache License 2.0. See [LICENSE](LICENSE) for details.
+---
 
-The GAIF framework specification is available under Creative Commons Attribution 4.0 (CC BY 4.0) at [Zenodo](https://doi.org/10.5281/zenodo.19341015).
+## CLI Tools
+
+The observatory ships with six command-line tools:
+
+| Tool | Purpose |
+|------|---------|
+| `gaif_scorer.py` | Compute all four GAIF-4 metrics for a pipeline run |
+| `gdr_calculator.py` | Measure governance decay across pipeline stages |
+| `emr_detector.py` | Detect emergent misinformation events in multi-agent outputs |
+| `t1pr_analyzer.py` | Analyze Type-1 pass rates and filter effectiveness |
+| `compliance_checker.py` | Check outputs against configurable compliance rule sets |
+| `governance_report.py` | Generate a full governance scorecard with recommendations |
+
+---
+
+## How It Maps to Standards
+
+GAIF does not replace existing AI governance frameworks. It makes them measurable.
+
+| Standard | GAIF Connection |
+|----------|----------------|
+| **NIST AI RMF** | GAIF metrics operationalize GOVERN and MEASURE functions with quantitative thresholds |
+| **WHO AI Ethics** | CFR maps directly to WHO's transparency and accountability principles |
+| **CHAI Blueprint** | EMR and T1PR address CHAI's requirements for clinical AI safety monitoring |
+| **EU AI Act** | GDR provides the continuous monitoring required for high-risk AI systems |
+
+See [`NIST-AI-RMF-Mapping.md`](NIST-AI-RMF-Mapping.md) for the full crosswalk.
+
+---
+
+## Research Behind This
+
+GAIF grew out of independent research on multi-agent LLM safety in healthcare. Key findings that shaped these tools:
+
+- **74 critical drug interaction events** emerged across 4,800 trials when LLM agents collaborated, even though each agent individually passed safety checks
+- **The most safety-trained model produced the worst drug interactions** at the pipeline level, showing that single-agent alignment does not guarantee system-level safety
+- **Governance effectiveness is model-dependent, not framework-dependent**, meaning the same governance rules work differently depending on which models are in your pipeline
+
+### Related Papers (all solo-authored by Aman Sharma)
+
+- **EMG**: "Emergent Misinformation Genesis in Multi-Agent LLM Clinical Pipelines" | [Zenodo](https://doi.org/10.5281/zenodo.19411743) | ~97K API calls, 4 model families, MIMIC-IV data
+- **PHI-GUARD**: Compliance-aware LLM routing using CARES algorithm | [TechRxiv](https://doi.org/10.36227/techrxiv.177220388.80392106/v1) | Under review at IEEE JBHI
+- **ContamPerc**: Contamination percolation in multi-agent LLM systems | Under review at IEEE Access | ~210K API calls
+- **GDR**: "Continuous Architecture Assurance: Measuring Governance Decay" | Under review at IEEE Software
+- **GNC**: Governance Non-Compositionality | Targeting NeurIPS 2026
+
+---
+
+## Data
+
+The repository includes 14 JSON data files drawn from experiments on MIMIC-IV clinical data, covering multi-agent pipeline outputs, governance metric calculations, and compliance audit results.
+
+---
+
+## Testing
+
+```bash
+# Run the full test suite
+python -m pytest tests/ -v
+
+# 59 tests covering all CLI tools and metric calculations
+```
+
+---
+
+## Use Cases
+
+**If you are building multi-agent LLM systems** in healthcare, finance, legal, or any regulated industry, GAIF helps you answer:
+
+- Are my agents safe individually but dangerous together?
+- How fast is my governance decaying as my pipeline scales?
+- Which model combinations create the highest compliance risk?
+- Can contaminated content from one agent survive downstream safety filters?
+
+**If you are a researcher** studying LLM safety, multi-agent coordination, or AI governance, GAIF gives you reproducible metrics to compare governance effectiveness across different architectures and model families.
+
+**If you are a regulator or policy maker**, GAIF provides the quantitative bridge between high-level governance principles (NIST, WHO, EU AI Act) and measurable system behavior.
+
+---
+
+## Contributing
+
+Contributions are welcome. If you are working on multi-agent LLM governance and want to extend GAIF metrics, add new compliance rule sets, or test against different model families, please open an issue or submit a pull request.
+
+---
 
 ## Citation
 
-If you use this toolkit or contribute to the observatory, please cite:
+If you use GAIF in your research or work, please cite:
 
 ```bibtex
-@misc{sharma2026gaif,
+@software{sharma2026gaif,
   author = {Sharma, Aman},
-  title = {GAIF: Governed AI Architecture Framework v1.0},
+  title = {GAIF: Governance AI Framework for Multi-Agent LLM Systems},
   year = {2026},
   publisher = {Zenodo},
-  doi = {10.5281/zenodo.19341015},
-  url = {https://doi.org/10.5281/zenodo.19341015}
+  doi = {10.5281/zenodo.19378438},
+  url = {https://github.com/aman210122/gaif-governance-observatory}
 }
 ```
 
-## Contact
+---
 
-- **Author:** Aman Sharma
-- **ORCID:** [0009-0005-5107-4485](https://orcid.org/0009-0005-5107-4485)
-- **LinkedIn:** [amansharmaarchitect](https://linkedin.com/in/amansharmaarchitect)
+## Author
+
+**Aman Sharma**
+Principal Enterprise Architect, AI/ML | Blue Shield of California
+[LinkedIn](https://linkedin.com/in/amansharmaarchitect) | [ORCID](https://orcid.org/0009-0005-5107-4485) | [Email](mailto:Aman_sharma007@yahoo.com)
+
+---
+
+## License
+
+MIT License. See [LICENSE](LICENSE) for details.
